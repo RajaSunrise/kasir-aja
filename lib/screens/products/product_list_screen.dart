@@ -19,7 +19,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<ProductProvider>().loadProducts();
+      if (mounted) {
+        context.read<ProductProvider>().loadProducts();
+      }
     });
   }
 
@@ -33,14 +35,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
       final provider = context.read<ProductProvider>();
       if (product == null) {
         await provider.addProduct(result);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produk "${result.name}" berhasil ditambahkan!')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Produk "${result.name}" berhasil ditambahkan!')),
+          );
+        }
       } else {
         await provider.updateProduct(result);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produk "${result.name}" berhasil diperbarui!')),
-        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Produk "${result.name}" berhasil diperbarui!')),
+          );
+        }
       }
     }
   }
@@ -60,6 +66,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
             onPressed: () async {
               Navigator.of(ctx).pop();
+              if (!mounted) return;
               await context.read<ProductProvider>().deleteProduct(product.id);
               if (mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(

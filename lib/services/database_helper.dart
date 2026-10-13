@@ -1,4 +1,3 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:flutter/foundation.dart';
@@ -195,7 +194,7 @@ class DatabaseHelper {
       result = await txnDb.insert('transactions', txn.toMap());
 
       for (var item in txn.items) {
-        final itemId = DateTime.now().microsecondsSinceEpoch.toString() + '_' + item.product.id;
+        final itemId = '${DateTime.now().microsecondsSinceEpoch}_${item.product.id}';
         await txnDb.insert('transaction_items', {
           'id': itemId,
           'transaction_id': txn.id,

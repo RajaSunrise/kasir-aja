@@ -120,7 +120,7 @@ class _AddEditProductDialogState extends State<AddEditProductDialog> {
                   children: [
                     Expanded(
                       child: DropdownButtonFormField<String>(
-                        value: _presetCategories.contains(_categoryController.text)
+                        initialValue: _presetCategories.contains(_categoryController.text)
                             ? _categoryController.text
                             : 'Umum',
                         decoration: const InputDecoration(

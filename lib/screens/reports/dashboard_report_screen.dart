@@ -20,9 +20,11 @@ class _DashboardReportScreenState extends State<DashboardReportScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<ProductProvider>().loadProducts();
-      context.read<TransactionProvider>().loadTransactions();
-      context.read<DebtProvider>().loadDebts();
+      if (mounted) {
+        context.read<ProductProvider>().loadProducts();
+        context.read<TransactionProvider>().loadTransactions();
+        context.read<DebtProvider>().loadDebts();
+      }
     });
   }
 

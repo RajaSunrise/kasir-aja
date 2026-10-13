@@ -20,7 +20,9 @@ class _DebtListScreenState extends State<DebtListScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<DebtProvider>().loadDebts();
+      if (mounted) {
+        context.read<DebtProvider>().loadDebts();
+      }
     });
   }
 
@@ -76,6 +78,7 @@ class _DebtListScreenState extends State<DebtListScreen> {
               final paidAmt = double.tryParse(amountController.text) ?? 0.0;
               if (paidAmt > 0) {
                 Navigator.of(ctx).pop();
+                if (!mounted) return;
                 await context.read<DebtProvider>().payDebt(
                       debt.id,
                       paidAmt,

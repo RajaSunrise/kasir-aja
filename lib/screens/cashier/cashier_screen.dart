@@ -25,7 +25,9 @@ class _CashierScreenState extends State<CashierScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<ProductProvider>().loadProducts();
+      if (mounted) {
+        context.read<ProductProvider>().loadProducts();
+      }
     });
   }
 
@@ -58,6 +60,7 @@ class _CashierScreenState extends State<CashierScreen> {
             note: note,
           );
 
+          if (!mounted) return;
           await context.read<TransactionProvider>().addTransaction(transaction);
 
           if (isDebt && name != null) {
@@ -73,6 +76,7 @@ class _CashierScreenState extends State<CashierScreen> {
               status: paidAmount >= total ? 'paid' : (paidAmount > 0 ? 'partially_paid' : 'unpaid'),
               note: note,
             );
+            if (!mounted) return;
             await context.read<DebtProvider>().addDebt(debt);
           }
 
@@ -81,6 +85,7 @@ class _CashierScreenState extends State<CashierScreen> {
             await context.read<ProductProvider>().loadProducts();
             cartProvider.clearCart();
 
+            if (!mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Transaksi $invoiceNo Berhasil Disimpan!'),
@@ -333,7 +338,7 @@ class _CashierScreenState extends State<CashierScreen> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
-                        BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, -2))
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 4, offset: const Offset(0, -2))
                       ],
                     ),
                     child: Column(

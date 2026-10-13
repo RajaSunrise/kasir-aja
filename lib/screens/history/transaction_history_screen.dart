@@ -20,7 +20,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      context.read<TransactionProvider>().loadTransactions();
+      if (mounted) {
+        context.read<TransactionProvider>().loadTransactions();
+      }
     });
   }
 

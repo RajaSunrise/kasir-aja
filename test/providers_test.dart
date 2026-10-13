@@ -3,7 +3,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:kasir_app/models/product.dart';
 import 'package:kasir_app/providers/product_provider.dart';
 import 'package:kasir_app/providers/cart_provider.dart';
-import 'package:kasir_app/providers/debt_provider.dart';
 import 'package:kasir_app/services/database_helper.dart';
 
 void main() {
