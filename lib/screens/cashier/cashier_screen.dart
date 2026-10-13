@@ -346,10 +346,19 @@ class _CashierScreenState extends State<CashierScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Total Pembayaran', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                            Text(
-                              currencyFormatter.format(cartProvider.totalAmount),
-                              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green),
+                            const Flexible(
+                              child: Text('Total Pembayaran', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                            ),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  currencyFormatter.format(cartProvider.totalAmount),
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                                ),
+                              ),
                             ),
                           ],
                         ),

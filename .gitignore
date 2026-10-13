@@ -26,6 +26,7 @@
 .pub/
 build/
 ephemeral/
+pubspec.lock
 
 # Android
 android/app/debug

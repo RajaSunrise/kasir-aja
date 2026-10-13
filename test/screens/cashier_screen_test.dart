@@ -18,6 +18,10 @@ void main() {
   });
 
   testWidgets('CashierScreen renders POS product grid and cart panel', (WidgetTester tester) async {
+    tester.view.physicalSize = const Size(1280, 800);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
     late Database db;
     await tester.runAsync(() async {
       db = await databaseFactoryFfi.openDatabase(inMemoryDatabasePath,
